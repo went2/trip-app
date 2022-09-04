@@ -2,7 +2,7 @@
   <div class="tab-bar">
     <template v-for="(item, index) in tabbarData" :key="index">
       <router-link :to="item.path" class="tab-bar-item">
-        <img src="../../assets/image/tabbar/tab_message.png" alt="order">
+        <img :src="getAssetURL(item.img)" alt="">
         <span class="text">{{ item.text }}</span>
       </router-link>
     </template>
@@ -11,32 +11,8 @@
 
 <script setup>
 
-const tabbarData = [
-  {
-    text: '首页',
-    img: '@/assets/image/tabbar/tab_home.png',
-    imgActive: '@/assets/image/tabbar/tab_home_active.png',
-    path: '/home'
-  },
-  {
-    text: '收藏',
-    img: '@/assets/image/tabbar/tab_favor.png',
-    imgActive: '@/assets/image/tabbar/tab_favor_active.png',
-    path: '/favor'
-  },
-  {
-    text: '订单',
-    img: '@/assets/image/tabbar/tab_order.png',
-    imgActive: '@/assets/image/tabbar/tab_order_active.png',
-    path: '/order'
-  },
-  {
-    text: '消息',
-    img: '@/assets/image/tabbar/tab_message.png',
-    imgActive: '@/assets/image/tabbar/tab_message.png',
-    path: '/message'
-  },
-]
+import tabbarData from '@/assets/data/tabbar';
+import { getAssetURL } from '@/utils/load-assets';
 
 </script>
 
