@@ -1,5 +1,4 @@
 <template>
-  <h2>App</h2>
   <router-view></router-view>
 
   <tab-bar></tab-bar>

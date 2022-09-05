@@ -1,10 +1,11 @@
 <template>
   <div class="home">
-    <h2>home</h2>
+    <home-nav-bar />
   </div>
 </template>
 
 <script setup>
+import HomeNavBar from './components/home-nav-bar.vue';
 
 </script>
 
