@@ -1,6 +1,6 @@
 <template>
   <div class="nav-bar">
-    <div class="title">没事多走走</div>
+    <div class="title">行走与打工</div>
   </div>
 </template>
 
