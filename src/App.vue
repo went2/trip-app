@@ -1,8 +1,6 @@
 <template>
-  <router-view></router-view>
-
-  <tab-bar></tab-bar>
-
+  <router-view />
+  <tab-bar />
 </template>
 
 <script setup>
