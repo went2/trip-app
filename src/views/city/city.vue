@@ -16,6 +16,17 @@
         <van-tab :title="item.title" :name="item.title"></van-tab>
       </template>
     </van-tabs>
+
+    <div class="hot-cities">
+      <div class="text">
+        <span>热门</span>
+      </div>
+      <div class="city-buttons">
+        <template v-for="(item, index) in cityData[0].hotCities" :key="item.cityId">
+          <van-button round class="button" color="#fed7a6">{{ item.cityName }}</van-button>
+        </template>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -39,8 +50,6 @@ const onCancel = () => {
 // tab切换
 const tabActive = ref("");
 
-
-
 // 获取所有城市信息
 const cityData = ref([]);
 
@@ -59,6 +68,26 @@ getAllCities().then((data) => {
 
 <style lang="less" scoped>
 
+.hot-cities {
+  margin-top: 5px;
+  padding: 0 15px;
 
+  .text {
+    margin-left: 5px;
+    margin-bottom: 15px;
+    color: grey;
+  }
+
+  .city-buttons {
+    --van-button-default-height: 40px !important;
+    :deep(.van-button--default) {
+      width: 78px;
+      height: 35px;
+    }
+    .button {
+      margin: 5px 0 5px 8px;
+    }
+  }
+}
 
 </style>
