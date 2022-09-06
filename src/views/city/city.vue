@@ -11,9 +11,16 @@
           @cancel="onCancel"
         />
       </form>
-      <van-tabs v-model:active="tabActive" color="#ff9854">
-        <template v-for="(item,index) in cityData" :key="index">
-          <van-tab :title="item.title" :name="item.title"></van-tab>
+      <van-tabs 
+        v-model:active="activeTab" 
+        color="#ff9854"
+        @change="changeTab"
+      >
+        <template v-for="(value, key, index) in allCities" :key="index">
+          <van-tab
+            :title="value.title" 
+            :name="key"
+          />
         </template>
       </van-tabs>
     </div>
@@ -24,7 +31,7 @@
           <span>热门</span>
         </div>
         <div class="city-buttons">
-          <template v-for="(item, index) in cityData[0].hotCities" :key="item.cityId">
+          <template v-for="(item, index) in allCities[currentCityGroup].hotCities" :key="item.cityId">
             <van-button round class="button" color="#fed7a6">{{ item.cityName }}</van-button>
           </template>
         </div>
@@ -55,12 +62,18 @@ const onCancel = () => {
 };
 
 // tab切换
-const tabActive = ref("");
+const activeTab = ref("");
+const changeTab = () => {
+  console.log('activeTab', activeTab.value);
+  currentCityGroup.value = activeTab.value;
+};
 
 // 获取所有城市信息
 const cityStore = useCityStore();
 cityStore.getAllCitiesData();
 const { allCities } = storeToRefs(cityStore);
+
+const currentCityGroup = ref("");
 
 const cityData = ref([]);
 
