@@ -14,7 +14,6 @@
       <van-tabs 
         v-model:active="activeTab" 
         color="#ff9854"
-        @change="changeTab"
       >
         <template v-for="(value, key, index) in allCities" :key="index">
           <van-tab
@@ -31,7 +30,7 @@
           <span>热门</span>
         </div>
         <div class="city-buttons">
-          <template v-for="(item, index) in allCities[currentCityGroup].hotCities" :key="item.cityId">
+          <template v-for="(item, index) in allCities[activeTab]?.hotCities" :key="item.cityId">
             <van-button round class="button" color="#fed7a6">{{ item.cityName }}</van-button>
           </template>
         </div>
@@ -45,17 +44,13 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
-import { getAllCities } from '@/service/modules/city';
 import useCityStore from '@/store/modules/city';
-
 
 const router = useRouter();
 
 // 搜索
 const seachValue = ref("");
-const onSearch = () => {
-
-};
+const onSearch = () => {};
 
 const onCancel = () => {
   router.back();
@@ -63,30 +58,11 @@ const onCancel = () => {
 
 // tab切换
 const activeTab = ref("");
-const changeTab = () => {
-  console.log('activeTab', activeTab.value);
-  currentCityGroup.value = activeTab.value;
-};
 
 // 获取所有城市信息
 const cityStore = useCityStore();
 cityStore.getAllCitiesData();
 const { allCities } = storeToRefs(cityStore);
-
-const currentCityGroup = ref("");
-
-const cityData = ref([]);
-
-getAllCities().then((data) => {
-  const rawData = data.data;
-  // console.log(Object.keys(rawData));
-
-  Object.keys(rawData).forEach((key) => {
-    cityData.value.push(rawData[key]);
-  });
-
-}).catch((err) => {console.error('获取城市信息失败', err)});
-
 
 </script>
 
