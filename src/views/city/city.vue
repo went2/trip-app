@@ -1,39 +1,46 @@
 <template>
   <div class="city top-page">
-    <form action="/">
-      <van-search
-        v-model="seachValue"
-        shape="round"
-        show-action
-        placeholder="城市/区域/位置"
-        @search="onSearch"
-        @cancel="onCancel"
-      />
-    </form>
-
-    <van-tabs v-model:active="tabActive" color="#ff9854">
-      <template v-for="(item,index) in cityData" :key="index">
-        <van-tab :title="item.title" :name="item.title"></van-tab>
-      </template>
-    </van-tabs>
-
-    <div class="hot-cities">
-      <div class="text">
-        <span>热门</span>
-      </div>
-      <div class="city-buttons">
-        <template v-for="(item, index) in cityData[0].hotCities" :key="item.cityId">
-          <van-button round class="button" color="#fed7a6">{{ item.cityName }}</van-button>
+    <div class="top">
+      <form action="/">
+        <van-search
+          v-model="seachValue"
+          shape="round"
+          show-action
+          placeholder="城市/区域/位置"
+          @search="onSearch"
+          @cancel="onCancel"
+        />
+      </form>
+      <van-tabs v-model:active="tabActive" color="#ff9854">
+        <template v-for="(item,index) in cityData" :key="index">
+          <van-tab :title="item.title" :name="item.title"></van-tab>
         </template>
+      </van-tabs>
+    </div>
+
+    <div class="content">
+      <div class="hot-cities">
+        <div class="text">
+          <span>热门</span>
+        </div>
+        <div class="city-buttons">
+          <template v-for="(item, index) in cityData[0].hotCities" :key="item.cityId">
+            <van-button round class="button" color="#fed7a6">{{ item.cityName }}</van-button>
+          </template>
+        </div>
       </div>
     </div>
+
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
-import {useRouter} from 'vue-router';
+import { useRouter } from 'vue-router';
+import { storeToRefs } from 'pinia';
 import { getAllCities } from '@/service/modules/city';
+import useCityStore from '@/store/modules/city';
+
 
 const router = useRouter();
 
@@ -51,6 +58,10 @@ const onCancel = () => {
 const tabActive = ref("");
 
 // 获取所有城市信息
+const cityStore = useCityStore();
+cityStore.getAllCitiesData();
+const { allCities } = storeToRefs(cityStore);
+
 const cityData = ref([]);
 
 getAllCities().then((data) => {
@@ -67,6 +78,11 @@ getAllCities().then((data) => {
 </script>
 
 <style lang="less" scoped>
+
+.content {
+  height: calc(100vh - 98px);
+  overflow-y: auto;
+}
 
 .hot-cities {
   margin-top: 5px;
