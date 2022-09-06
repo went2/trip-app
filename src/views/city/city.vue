@@ -12,15 +12,17 @@
     </form>
 
     <van-tabs v-model:active="tabActive" color="#ff9854">
-      <van-tab title="国内·港澳台" name="a"></van-tab>
-      <van-tab title="海外" name="b"></van-tab>
+      <template v-for="(item,index) in cityData" :key="index">
+        <van-tab :title="item.title" :name="item.title"></van-tab>
+      </template>
     </van-tabs>
   </div>
 </template>
 
 <script setup>
-import {ref} from 'vue';
+import { ref } from 'vue';
 import {useRouter} from 'vue-router';
+import { getAllCities } from '@/service/modules/city';
 
 const router = useRouter();
 
@@ -35,7 +37,22 @@ const onCancel = () => {
 };
 
 // tab切换
-const tabActive = ref("a");
+const tabActive = ref("");
+
+
+
+// 获取所有城市信息
+const cityData = ref([]);
+
+getAllCities().then((data) => {
+  const rawData = data.data;
+  // console.log(Object.keys(rawData));
+
+  Object.keys(rawData).forEach((key) => {
+    cityData.value.push(rawData[key]);
+  });
+
+}).catch((err) => {console.error('获取城市信息失败', err)});
 
 
 </script>
