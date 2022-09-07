@@ -25,7 +25,7 @@
     </div>
 
     <div class="content">
-      <div class="hot-cities">
+      <!-- <div class="hot-cities">
         <div class="text">
           <span>热门</span>
         </div>
@@ -34,14 +34,30 @@
             <van-button round class="button" color="#fed7a6">{{ item.cityName }}</van-button>
           </template>
         </div>
-      </div>
+      </div> -->
+
+      <van-index-bar>
+        <van-index-anchor index="热门" />
+        <div class="hot-cities">
+          <template v-for="(city, index) in currentCityGroup?.hotCities" :key="city.cityId">
+            <div class="hot-city-item">{{ city.cityName }}</div>
+          </template>
+        </div>
+
+
+        <van-index-anchor index="B" />
+        <van-cell title="Text" />
+        <van-cell title="Text" />
+        <van-cell title="Text" />
+
+      </van-index-bar>
     </div>
 
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import useCityStore from '@/store/modules/city';
@@ -64,9 +80,16 @@ const cityStore = useCityStore();
 cityStore.getAllCitiesData();
 const { allCities } = storeToRefs(cityStore);
 
+const currentCityGroup = computed(() => allCities.value[activeTab.value]);
+
 </script>
 
 <style lang="less" scoped>
+
+.top {
+  position: relative;
+  z-index: 9;
+}
 
 .content {
   height: calc(100vh - 98px);
@@ -74,24 +97,22 @@ const { allCities } = storeToRefs(cityStore);
 }
 
 .hot-cities {
-  margin-top: 5px;
-  padding: 0 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 10px;
+  padding-right: 25px;
 
-  .text {
-    margin-left: 5px;
-    margin-bottom: 15px;
-    color: grey;
-  }
-
-  .city-buttons {
-    --van-button-default-height: 40px !important;
-    :deep(.van-button--default) {
-      width: 78px;
-      height: 35px;
-    }
-    .button {
-      margin: 5px 0 5px 8px;
-    }
+  .hot-city-item {
+    width: 70px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    border-radius: 14px;
+    color: #000;
+    font-size: 12px;
+    background-color: #fff4ec;
+    margin: 6px 0;
   }
 }
 
