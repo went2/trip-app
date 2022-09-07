@@ -9,9 +9,13 @@ body {
 
 
 .top-page {
-  background-color: white;
+  background-color: #fff;
   position: relative;
   z-index: 10;
   height: 100vh;
   overflow-y: auto;
+}
+
+.bottom-gray-line {
+  border-bottom: 1px solid var(--line-color);
 }
