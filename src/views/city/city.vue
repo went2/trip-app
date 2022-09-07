@@ -25,18 +25,8 @@
     </div>
 
     <div class="content">
-      <!-- <div class="hot-cities">
-        <div class="text">
-          <span>热门</span>
-        </div>
-        <div class="city-buttons">
-          <template v-for="(item, index) in allCities[activeTab]?.hotCities" :key="item.cityId">
-            <van-button round class="button" color="#fed7a6">{{ item.cityName }}</van-button>
-          </template>
-        </div>
-      </div> -->
-
-      <van-index-bar>
+      
+      <!-- <van-index-bar>
         <van-index-anchor index="热门" />
         <div class="hot-cities">
           <template v-for="(city, index) in currentCityGroup?.hotCities" :key="city.cityId">
@@ -44,13 +34,19 @@
           </template>
         </div>
 
+        <template v-for="(cityGroup, index) in currentCityGroup?.cities" :key="index">
+          <van-index-anchor :index="cityGroup.group" />
+            <template v-for="city in cityGroup.cities" :key="city.cityId">
+              <van-cell :title="city.cityName" />
+            </template>
+        </template>
 
-        <van-index-anchor index="B" />
-        <van-cell title="Text" />
-        <van-cell title="Text" />
-        <van-cell title="Text" />
+      </van-index-bar> -->
 
-      </van-index-bar>
+    <template v-for="(value, key, index) in allCities" :key="index">
+      <city-group v-show="activeTab === key" :current-group="value"/>
+    </template>
+      
     </div>
 
   </div>
@@ -61,6 +57,8 @@ import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import useCityStore from '@/store/modules/city';
+
+import CityGroup from './components/city-group.vue';
 
 const router = useRouter();
 
@@ -96,24 +94,6 @@ const currentCityGroup = computed(() => allCities.value[activeTab.value]);
   overflow-y: auto;
 }
 
-.hot-cities {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  padding: 10px;
-  padding-right: 25px;
 
-  .hot-city-item {
-    width: 70px;
-    height: 28px;
-    line-height: 28px;
-    text-align: center;
-    border-radius: 14px;
-    color: #000;
-    font-size: 12px;
-    background-color: #fff4ec;
-    margin: 6px 0;
-  }
-}
 
 </style>
