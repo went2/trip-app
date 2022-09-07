@@ -4,14 +4,14 @@
         <van-index-anchor index="热门" />
         <div class="hot-cities">
           <template v-for="(city, index) in currentGroup.hotCities" :key="city.cityId">
-            <div class="hot-city-item">{{ city.cityName }}</div>
+            <div class="hot-city-item" @click="clickCity(city)">{{ city.cityName }}</div>
           </template>
         </div>
 
         <template v-for="(cityGroup, index) in currentGroup.cities" :key="index">
           <van-index-anchor :index="cityGroup.group" />
             <template v-for="city in cityGroup.cities" :key="city.cityId">
-              <van-cell :title="city.cityName" />
+              <van-cell :title="city.cityName" @click="clickCity(city)" />
             </template>
         </template>
 
@@ -20,20 +20,30 @@
 </template>
 
 <script setup>
-import { defineProps, computed } from 'vue';
+import { defineProps, computed, toRaw } from 'vue';
+import { useRouter } from 'vue-router';
+import useCityStore from '@/store/modules/city';
 
 const props = defineProps({
   currentGroup: {
     type: Object,
     default: () => ({})
   }
-})
+});
 
 const indexList = computed(() => {
   const list = props.currentGroup.cities.map(item => item.group);
   list.unshift('#');
   return list;
-})
+});
+
+const router = useRouter();
+const cityStore = useCityStore();
+const clickCity = (city) => {
+  console.log('点击城市:', toRaw(city));
+  cityStore.currentCity = city;
+  router.back();
+}
 
 </script>
 

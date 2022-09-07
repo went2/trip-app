@@ -1,5 +1,5 @@
 <template>
-  <div class="city top-page">
+    <div class="city top-page">
     <div class="top">
       <form action="/">
         <van-search
@@ -26,11 +26,15 @@
 
     <div class="content">
       <template v-for="(value, key, index) in allCities" :key="index">
-        <city-group v-show="activeTab === key" :current-group="value"/>
+        <city-group
+          v-show="activeTab === key" 
+          :current-group="value"
+        />
       </template>
     </div>
 
   </div>
+
 </template>
 
 <script setup>
@@ -56,7 +60,7 @@ const activeTab = ref("");
 
 // 获取所有城市信息
 const cityStore = useCityStore();
-cityStore.getAllCitiesData();
+cityStore.fetchAllCitiesData();
 const { allCities } = storeToRefs(cityStore);
 
 </script>
