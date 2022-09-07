@@ -25,35 +25,16 @@
     </div>
 
     <div class="content">
-      
-      <!-- <van-index-bar>
-        <van-index-anchor index="热门" />
-        <div class="hot-cities">
-          <template v-for="(city, index) in currentCityGroup?.hotCities" :key="city.cityId">
-            <div class="hot-city-item">{{ city.cityName }}</div>
-          </template>
-        </div>
-
-        <template v-for="(cityGroup, index) in currentCityGroup?.cities" :key="index">
-          <van-index-anchor :index="cityGroup.group" />
-            <template v-for="city in cityGroup.cities" :key="city.cityId">
-              <van-cell :title="city.cityName" />
-            </template>
-        </template>
-
-      </van-index-bar> -->
-
-    <template v-for="(value, key, index) in allCities" :key="index">
-      <city-group v-show="activeTab === key" :current-group="value"/>
-    </template>
-      
+      <template v-for="(value, key, index) in allCities" :key="index">
+        <city-group v-show="activeTab === key" :current-group="value"/>
+      </template>
     </div>
 
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import useCityStore from '@/store/modules/city';
@@ -77,8 +58,6 @@ const activeTab = ref("");
 const cityStore = useCityStore();
 cityStore.getAllCitiesData();
 const { allCities } = storeToRefs(cityStore);
-
-const currentCityGroup = computed(() => allCities.value[activeTab.value]);
 
 </script>
 

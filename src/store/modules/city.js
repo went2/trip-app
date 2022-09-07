@@ -5,9 +5,6 @@ const useCityStore = defineStore('city', {
   state: () => ({
     allCities: {}
   }),
-  getter: {
-
-  },
   actions: {
     async getAllCitiesData() {
       const res = await getAllCities();

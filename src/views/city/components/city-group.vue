@@ -1,6 +1,6 @@
 <template>
   <div class="city-group">
-    <van-index-bar :sticky="false">
+    <van-index-bar :sticky="false" :index-list="indexList">
         <van-index-anchor index="热门" />
         <div class="hot-cities">
           <template v-for="(city, index) in currentGroup.hotCities" :key="city.cityId">
@@ -20,13 +20,19 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps, computed } from 'vue';
 
 const props = defineProps({
   currentGroup: {
     type: Object,
     default: () => ({})
   }
+})
+
+const indexList = computed(() => {
+  const list = props.currentGroup.cities.map(item => item.group);
+  list.unshift('#');
+  return list;
 })
 
 </script>
