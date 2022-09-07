@@ -32,13 +32,37 @@
       :show-confirm="false"
       @confirm="onConfirm"
     />
+
+    <!-- 价格/人数选择 -->
+    <div class="section price-counter bottom-gray-line">
+      <div class="start">价格不限</div>
+      <div class="end">人数不限</div>
+    </div>
+    <!-- 关键字 -->
+    <div class="section keyword bottom-gray-line">关键字/位置/民宿名</div>
+
+    <!-- 热门建议 -->
+    <div class="section hot-suggests">
+      <template v-for="(item, index) in hotSuggests" :key="index">
+        <div 
+          class="item"
+          :style="{ color: item.tagText.color, background: item.tagText.background.color }"
+        >
+          {{ item.tagText.text }}
+        </div>
+      </template>
+    </div>
+
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { storeToRefs } from 'pinia';
 import useCityStore from '@/store/modules/city';
+import useHomeStore from '@/store/modules/home';
+
 import { formatMonthDay, getDiffDays } from '@/utils/format-date';
 
 const cityStore = useCityStore();
@@ -80,6 +104,12 @@ const onConfirm = (value) => {
 
   showCalendar.value = false;
 }
+
+// 热门建议
+const homeStore = useHomeStore();
+homeStore.fetchHotSuggestsDate();
+const { hotSuggests } = storeToRefs(homeStore);
+console.log(hotSuggests);
 
 </script>
 
@@ -158,6 +188,26 @@ const onConfirm = (value) => {
     text-align: center;
     font-size: 12px;
     color: #666;
+  }
+}
+
+.price-counter {
+  margin-top: 10px;
+  .start {
+    border-right: 1px solid  var(--line-color);
+  }
+}
+
+.hot-suggests {
+
+  margin: 10px 0;
+
+  .item {
+    padding: 4px 8px;
+    margin: 4px;
+    border-radius: 14px;
+    font-size: 12px;
+    line-height: 1;
   }
 }
 </style>

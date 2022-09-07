@@ -1,2 +1,3 @@
-// 导出所有module
+// 导出所有modules
 export * from './modules/city';
+export * from './modules/home';
