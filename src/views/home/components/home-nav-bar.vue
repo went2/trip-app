@@ -1,6 +1,6 @@
 <template>
   <div class="nav-bar">
-    <div class="title">行走与打工</div>
+    <div class="title">行走大地</div>
   </div>
 </template>
 
@@ -18,8 +18,8 @@
 
     .title {
       font-size: 18px;
-      font-weight: 500;
-      letter-spacing: 1px;
+      font-weight: 700;
+      letter-spacing: 2px;
       color: var(--primary-color);
     }
   }

@@ -1,7 +1,7 @@
 <template>
   <div class="search-box">
     <div class="location">
-      <div class="city" @click="clickCity">{{ cityStore.currentCity.cityName }}</div>
+      <div class="city" @click="clickCity">{{ currentCity.cityName }}</div>
       <div class="my-position" @click="clickPosition">
         <span class="text">我的位置</span>
         <img src="@/assets/image/home/icon_location.png" alt="location-image">
@@ -45,19 +45,25 @@
     <div class="section hot-suggests">
       <template v-for="(item, index) in hotSuggests" :key="index">
         <div 
-          class="item"
+          class="suggest-item"
           :style="{ color: item.tagText.color, background: item.tagText.background.color }"
+          @click="clickSuggest(item)"
         >
           {{ item.tagText.text }}
         </div>
       </template>
     </div>
 
+    <!-- 搜索按钮 -->
+    <div class="section search-btn">
+      <button class="btn" @click="clickSearch">开始搜索</button>
+    </div>
+
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, toRaw } from 'vue';
 import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import useCityStore from '@/store/modules/city';
@@ -66,6 +72,7 @@ import useHomeStore from '@/store/modules/home';
 import { formatMonthDay, getDiffDays } from '@/utils/format-date';
 
 const cityStore = useCityStore();
+const { currentCity } = storeToRefs(cityStore);
 
 const router = useRouter();
 
@@ -99,7 +106,6 @@ const onConfirm = (value) => {
   const selectEndDate = value[1];
   startDate.value = formatMonthDay(selectStartDate);
   endDate.value = formatMonthDay(selectEndDate);
-  console.log(selectStartDate);
   stayCount.value = getDiffDays(selectStartDate, selectEndDate);
 
   showCalendar.value = false;
@@ -109,7 +115,26 @@ const onConfirm = (value) => {
 const homeStore = useHomeStore();
 homeStore.fetchHotSuggestsDate();
 const { hotSuggests } = storeToRefs(homeStore);
-console.log(hotSuggests);
+
+const clickSuggest = (item) => {
+  console.log(toRaw(item));
+  toSearch();
+}
+
+// search btn handler
+const clickSearch = () => toSearch();
+
+// common methods
+const toSearch = () => {
+  router.push({
+    path: '/search',
+    query: {
+      startDate: startDate.value,
+      endDate: endDate.value,
+      currentCity: currentCity.value.cityId,
+    }
+  });
+}
 
 </script>
 
@@ -199,15 +224,33 @@ console.log(hotSuggests);
 }
 
 .hot-suggests {
-
   margin: 10px 0;
+  height: auto;
 
-  .item {
+  .suggest-item {
     padding: 4px 8px;
     margin: 4px;
     border-radius: 14px;
     font-size: 12px;
     line-height: 1;
+  }
+}
+
+.search-btn {
+  display: flex;
+  align-items: center;
+
+  .btn {
+    flex: 1;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: #fff;
+    text-align: center;
+    border-radius: 20px;
+    border: none;
+    padding: 10px;
+    background-image: var(--theme-linear-gradient);
   }
 }
 </style>

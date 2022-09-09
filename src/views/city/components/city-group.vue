@@ -40,7 +40,6 @@ const indexList = computed(() => {
 const router = useRouter();
 const cityStore = useCityStore();
 const clickCity = (city) => {
-  console.log('点击城市:', toRaw(city));
   cityStore.currentCity = city;
   router.back();
 }
