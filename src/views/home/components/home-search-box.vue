@@ -58,7 +58,6 @@
     <div class="section search-btn">
       <button class="btn" @click="clickSearch">开始搜索</button>
     </div>
-
   </div>
 </template>
 
@@ -73,6 +72,10 @@ import { formatMonthDay, getDiffDays } from '@/utils/format-date';
 
 const cityStore = useCityStore();
 const { currentCity } = storeToRefs(cityStore);
+
+const homeStore = useHomeStore();
+const { hotSuggests } = storeToRefs(homeStore);
+homeStore.fetchHotSuggestsData();
 
 const router = useRouter();
 
@@ -110,11 +113,6 @@ const onConfirm = (value) => {
 
   showCalendar.value = false;
 }
-
-// 热门建议
-const homeStore = useHomeStore();
-homeStore.fetchHotSuggestsDate();
-const { hotSuggests } = storeToRefs(homeStore);
 
 const clickSuggest = (item) => {
   console.log(toRaw(item));
