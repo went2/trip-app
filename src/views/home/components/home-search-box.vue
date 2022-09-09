@@ -75,7 +75,6 @@ const { currentCity } = storeToRefs(cityStore);
 
 const homeStore = useHomeStore();
 const { hotSuggests } = storeToRefs(homeStore);
-homeStore.fetchHotSuggestsData();
 
 const router = useRouter();
 

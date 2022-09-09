@@ -1,5 +1,5 @@
 <template>
-  <router-view />
+  <router-view :class=" !route.meta.hideTabBar && 'with-tabbar'" />
   <tab-bar v-if="!route.meta.hideTabBar" />
 </template>
 
@@ -13,4 +13,9 @@ const route = useRoute();
 </script>
 
 <style scoped>
+
+/* .with-tabbar {
+  height: calc(100vh - 50px);
+  overflow-y: auto;
+} */
 </style>

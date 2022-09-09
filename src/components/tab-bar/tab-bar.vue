@@ -35,6 +35,12 @@ const itemClick = (item) => {
 
 <style lang="less" scoped>
 .tab-bar {
+  :deep(.van-tabbar-item__icon) {
+    font-size: 50px;
+  }
+  img {
+    height: 26px;
+  }
   .active {
     color: var(--primary-color);
   }
