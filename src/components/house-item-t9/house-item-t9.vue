@@ -73,9 +73,6 @@ defineProps({
       .price {
         display: flex;
         justify-content: space-between;
-        .rate {
-
-        }
       }
     }
   }
