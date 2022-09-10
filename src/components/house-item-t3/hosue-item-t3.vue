@@ -108,7 +108,7 @@ const discountStyle = reactive({
         font-size: 12px;
       }
       .discount {
-        margin-left: 5px;
+        margin-left: 8px;
         font-size: 12px;
         padding: 1px 8px;
         border-radius: 10px;

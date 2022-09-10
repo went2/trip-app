@@ -30,6 +30,8 @@ const { houseList } = storeToRefs(homeStore);
   }
   .list {
     margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
   }
 }
 </style>
