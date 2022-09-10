@@ -7,31 +7,36 @@
     <home-search-box />
     <home-category />
     <home-content />
-    <button @click="clickMoreHouse" class="btn">More House</button>
   </div>
 </template>
 
 <script setup>
+import { watch } from 'vue';
 import HomeNavBar from './components/home-nav-bar.vue';
 import HomeSearchBox from './components/home-search-box.vue';
 import HomeCategory from './components/home-category.vue';
 import HomeContent from './components/home-content.vue';
 import useHomeStore from '@/store/modules/home';
+import useScorll from '@/hooks/useScroll';
 
 const homeStore = useHomeStore();
 homeStore.fetchHotSuggestsData();
 homeStore.fetchHomeCaterogies();
 homeStore.fetchHomeList();
 
-const clickMoreHouse = () => {
+const { isBottom } = useScorll();
+watch(isBottom, () => {
+  // console.log('isBottom', isBottom.value);
   homeStore.fetchHomeList();
-}
+  isBottom.value = false;
+});
 
 </script>
 
 <style lang="less" scoped>
 .home {
   padding-bottom: 40px;
+
 }
 .banner {
   img {

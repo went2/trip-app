@@ -8,6 +8,10 @@ body {
   font-size: 14px;
 }
 
+/* body::-webkit-scrollbar {
+  display: none;
+} */
+
 
 .top-page {
   background-color: #fff;
