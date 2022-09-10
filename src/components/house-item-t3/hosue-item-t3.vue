@@ -2,7 +2,7 @@
   <div class="house-item">
     <div class="item-inner">
       <div class="cover">
-        <img :src="itemData.image.url" alt="">
+        <img :src="itemData?.image?.url" alt="">
       </div>
       <div class="info">
         <div class="location">
@@ -15,11 +15,8 @@
         <div class="price">
           <div class="new">￥{{ itemData.finalPrice }}</div>
           <div class="old">￥{{ itemData.productPrice }}</div>
-          <div
-            class="discount"
-            :style="discountStyle"
-          >
-            {{ itemData.priceTipBadge.text }}
+          <div class="discount">
+            {{ itemData?.priceTipBadge?.text }}
           </div>
         </div>
       </div>
@@ -37,13 +34,13 @@ const props = defineProps({
   },
 });
 
-const startColor = computed(() => props.itemData.priceTipBadge.gradient.startColor);
-const endColor = computed(() => props.itemData.priceTipBadge.gradient.endColor);
+// const startColor = computed(() => props.itemData.priceTipBadge.gradient.startColor);
+// const endColor = computed(() => props.itemData.priceTipBadge.gradient.endColor);
 
-const discountStyle = reactive({
-  color: props.itemData.priceTipBadge.color,
-  backgroundImage: `linear-gradient(to right, ${startColor.value}, ${'#' + endColor.value})`
-});
+// const discountStyle = reactive({
+//   color: props.itemData.priceTipBadge?.color ?? '#fff',
+//   backgroundImage: `linear-gradient(to right, ${startColor.value}, ${'#' + endColor.value})`
+// });
 
 </script>
 
@@ -108,6 +105,8 @@ const discountStyle = reactive({
         font-size: 12px;
       }
       .discount {
+        background-image: linear-gradient(to right, #FF6666,#FF9F9F);
+        color: #fff;
         margin-left: 8px;
         font-size: 12px;
         padding: 1px 8px;

@@ -30,14 +30,13 @@ const clickMoreHouse = () => {
 </script>
 
 <style lang="less" scoped>
+.home {
+  padding-bottom: 40px;
+}
 .banner {
   img {
     width: 100%;
   }
-}
-
-.btn {
-  // height: 100px;
 }
 
 </style>
