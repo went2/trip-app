@@ -79,7 +79,7 @@ const mainStore = useMainStore();
 const { startDate, endDate, startDateFormated, endDateFormated, dateInterval } = storeToRefs(mainStore);
 
 
-console.log(startDateFormated, endDateFormated);
+// console.log(startDateFormated, endDateFormated);
 const router = useRouter();
 
 const clickPosition = () => {
