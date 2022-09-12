@@ -65,7 +65,7 @@ const endDateStr = computed(() => formatMonthDay(endDate.value, 'MM.DD'));
         align-items: center;
       }
       .name {
-        color: #999
+        color: #999;
       }
       .date {
         margin-left: 5px;
@@ -76,6 +76,7 @@ const endDateStr = computed(() => formatMonthDay(endDate.value, 'MM.DD'));
       margin-left: 15px;
       flex: 1;
       .keyword {
+        color: #999;
         max-width: 155px;
         height: 100%;
         line-height: 40px;
