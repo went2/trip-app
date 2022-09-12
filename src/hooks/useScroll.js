@@ -13,11 +13,11 @@ export default function useScorll() {
     clientHeighgt.value = document.documentElement.clientHeight; 
     scrollTop.value = document.documentElement.scrollTop;
   
-    if(clientHeighgt + scrollTop + 20 >= scrollHeight) {
+    if(clientHeighgt.value + scrollTop.value + 20 >= scrollHeight.value) {
       console.log('滚到底部');
       isBottom.value = true;
     }
-  }, 100);
+  }, 300);
   
   onMounted(() => {
     window.addEventListener('scroll', scrollCallBack);
