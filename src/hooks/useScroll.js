@@ -4,11 +4,14 @@ import { throttle } from 'underscore';
 
 export default function useScorll() {
   const isBottom = ref(false);
+  const scrollTop = ref(0); // 已滚动
+  const clientHeighgt = ref(0);  // 设备高
+  const scrollHeight = ref(0);  // 可滚动
 
   const scrollCallBack = throttle(() => {
-    const scrollHeight = document.documentElement.scrollHeight; // 可滚动
-    const clientHeighgt = document.documentElement.clientHeight; // 设备高
-    const scrollTop = document.documentElement.scrollTop; // 已滚动
+    scrollHeight.value = document.documentElement.scrollHeight;
+    clientHeighgt.value = document.documentElement.clientHeight; 
+    scrollTop.value = document.documentElement.scrollTop;
   
     if(clientHeighgt + scrollTop + 20 >= scrollHeight) {
       console.log('滚到底部');
@@ -32,5 +35,5 @@ export default function useScorll() {
     window.removeEventListener('scroll', scrollCallBack);
   });
 
-  return { isBottom }
+  return { isBottom, scrollTop, clientHeighgt, scrollHeight };
 }

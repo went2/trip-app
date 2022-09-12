@@ -1,11 +1,9 @@
 <template>
   <div class="tab-bar">
-    <van-tabbar v-model="currentIndex">
-      <template
-        v-for="(item, index) in tabbarData" :key="index">
+    <van-tabbar v-model="currentIndex" route active-color="#ff9854">
+      <template v-for="(item, index) in tabbarData" :key="index">
         <van-tabbar-item
-          :class="{ active: index === currentIndex }"
-          @click="itemClick(item)"
+          :to="item.path"
         >
           <span>{{ item.text }}</span>
           <template #icon>
@@ -19,17 +17,20 @@
 </template>
 
 <script setup>
-import {ref} from 'vue';
+import { ref, watch } from 'vue';
 import tabbarData from '@/assets/data/tabbar';
 import { getAssetURL } from '@/utils/load-assets';
-import { useRouter } from 'vue-router';
-
-const router = useRouter();
+import { useRoute } from 'vue-router';
 
 const currentIndex = ref(0);
-const itemClick = (item) => {
-  router.push(item.path)
-}
+
+const route = useRoute();
+watch(route, () => {
+  console.log('route.path', route.path);
+  const index = tabbarData.findIndex((item) => item.path === route.path);
+  if(index === -1) return;
+  currentIndex.value = index;
+});
 
 </script>
 
@@ -40,9 +41,6 @@ const itemClick = (item) => {
   }
   img {
     height: 26px;
-  }
-  .active {
-    color: var(--primary-color);
   }
 }
 </style>
