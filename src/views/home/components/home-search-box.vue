@@ -13,14 +13,14 @@
       <div class="start">
         <div class="date">
           <span class="tip">入住</span>
-          <span class="time">{{ startDate }}</span>
+          <span class="time">{{ startDateFormated }}</span>
         </div>
-        <div class="stay">共 {{ stayCount }} 晚</div>
+        <div class="stay">共 {{ dateInterval }} 晚</div>
       </div>
       <div class="end">
         <div class="date">
           <span class="tip">离店</span>
-          <span class="time">{{ endDate }}</span>
+          <span class="time">{{ endDateFormated }}</span>
         </div>
       </div>
     </div>
@@ -67,8 +67,7 @@ import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import useCityStore from '@/store/modules/city';
 import useHomeStore from '@/store/modules/home';
-
-import { formatMonthDay, getDiffDays } from '@/utils/format-date';
+import useMainStore from '@/store/modules/main';
 
 const cityStore = useCityStore();
 const { currentCity } = storeToRefs(cityStore);
@@ -76,6 +75,11 @@ const { currentCity } = storeToRefs(cityStore);
 const homeStore = useHomeStore();
 const { hotSuggests } = storeToRefs(homeStore);
 
+const mainStore = useMainStore();
+const { startDate, endDate, startDateFormated, endDateFormated, dateInterval } = storeToRefs(mainStore);
+
+
+console.log(startDateFormated, endDateFormated);
 const router = useRouter();
 
 const clickPosition = () => {
@@ -93,22 +97,13 @@ const clickCity = () => {
   router.push('/city');
 }
 
-// 选择日期范围
-const nowDate = new Date();
-const nextDay = new Date();
-nextDay.setDate((new Date()).getDate() + 1);
-
-const startDate = ref(formatMonthDay(nowDate));
-const endDate = ref(formatMonthDay(nextDay));
-const stayCount = ref(getDiffDays(nowDate, nextDay));
-
+// 选择日期
 const showCalendar = ref(false);
 const onConfirm = (value) => {
   const selectStartDate = value[0];
   const selectEndDate = value[1];
-  startDate.value = formatMonthDay(selectStartDate);
-  endDate.value = formatMonthDay(selectEndDate);
-  stayCount.value = getDiffDays(selectStartDate, selectEndDate);
+  startDate.value = selectStartDate;
+  endDate.value = selectEndDate;
 
   showCalendar.value = false;
 }

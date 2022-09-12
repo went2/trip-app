@@ -26,7 +26,7 @@ const currentIndex = ref(0);
 
 const route = useRoute();
 watch(route, () => {
-  console.log('route.path', route.path);
+  // console.log('route.path', route.path);
   const index = tabbarData.findIndex((item) => item.path === route.path);
   if(index === -1) return;
   currentIndex.value = index;
