@@ -9,6 +9,9 @@
     <div class="main" v-if="mainPart">
       <detail-swipe :swipe-data="mainPart.topModule.housePicture.housePics" />
       <detail-info :top-info="mainPart.topModule" />
+      <div class="facility-section">
+        <detail-facility :facility-data="mainPart.dynamicModule.facilityModule.houseFacility" />
+      </div>
     </div>
   </div>
 </template>
@@ -20,6 +23,7 @@ import { getHouseDetail } from '@/service'
 import { computed } from '@vue/reactivity';
 import DetailSwipe from './components/detail_01-swipe.vue';
 import DetailInfo from './components/detail_02-info.vue';
+import DetailFacility from './components/detail_03-facility.vue';
 
 const router = useRouter();
 const route = useRoute();

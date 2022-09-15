@@ -5,7 +5,7 @@
     </div>
     <div class="content">
       <slot>
-        <h2>默认内容</h2>
+        <div>默认内容</div>
       </slot> 
     </div>
 
@@ -35,12 +35,26 @@ defineProps({
 <style lang="less" scoped>
 .section {
   margin: 5px 0;
-  border-top: 5px solid #ddd;
+  padding: 10px;
+  border-top: 3px solid #eee;
+
+  .header {
+    margin-top: 10px;
+    .title {
+      font-size: 20px;
+      font-weight: 600;
+    }
+  }
+
+  .content {
+    padding: 5px;
+  }
   .footer {
+    margin-top: 12px;
     display: flex;
     justify-content: flex-end;
     .more {
-      // position: absolute;
+      font-weight: 500;
       color: var(--primary-color);
     }
   }
