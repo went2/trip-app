@@ -54,7 +54,7 @@ defineProps({
     display: flex;
     justify-content: flex-end;
     .more {
-      font-weight: 500;
+      font-weight: 600;
       color: var(--primary-color);
     }
   }
