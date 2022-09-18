@@ -36,7 +36,7 @@ defineProps({
 .section {
   margin: 5px 0;
   padding: 10px;
-  border-top: 3px solid #eee;
+  border-top: 4px solid #eee;
 
   .header {
     margin-top: 10px;

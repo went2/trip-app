@@ -32,3 +32,9 @@ body {
   height: 12px;
   background: url(../image/detail/icon_check.png) 0 0 / 100% 100%;
 }
+
+.detail-section-inner {
+  background-color: #f7f9fb;
+  border-radius: 6px;
+  padding: 10px;
+}

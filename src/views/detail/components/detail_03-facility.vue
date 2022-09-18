@@ -1,7 +1,7 @@
 <template>
   <div class="facility">
     <detail-section title="房屋设施" more-text="查看全部设施">
-      <div class="inner">
+      <div class="inner detail-section-inner">
         <template v-for="(item, index) in facilityData.houseFacilitys" :key="index">
           <div class="item" v-if="facilityData.facilitySort.includes(index)">
             <div class="left">
@@ -37,9 +37,6 @@ defineProps({
 
 <style lang="less" scoped>
 .inner {
-  background-color: #f7f9fb;
-  border-radius: 6px;
-  padding: 10px;
 
   .item {
     display: flex;
