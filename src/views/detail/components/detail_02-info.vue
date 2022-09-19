@@ -63,10 +63,11 @@ defineProps({
     margin-top: 8px;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     .tag-item {
       font-size: 13px;
-      padding: 2px;
-      margin: 0 3px;
+      padding: 3px;
+      margin: 0 3px 4px;
     }
   }
 
