@@ -21,6 +21,10 @@
       <div class="comment-section">
         <detail-comment :comment-data="mainPart.dynamicModule.commentModule" />
       </div>
+
+      <div class="rules-section">
+        <detail-rules :rules-data="mainPart.dynamicModule.rulesModule" />
+      </div>
     </div>
   </div>
 </template>
@@ -35,6 +39,7 @@ import DetailInfo from './components/detail_02-info.vue';
 import DetailFacility from './components/detail_03-facility.vue';
 import DetailLandlord from './components/detail_04-landlord.vue';
 import DetailComment from './components/detail_05-comment.vue';
+import DetailRules from './components/detail_06-rules.vue';
 
 const router = useRouter();
 const route = useRoute();

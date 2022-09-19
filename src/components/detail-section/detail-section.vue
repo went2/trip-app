@@ -9,7 +9,7 @@
       </slot> 
     </div>
 
-    <div class="footer">
+    <div class="footer" v-if="showFooter">
       <div class="more">
         <span>{{ moreText }}</span>
         <van-icon name="arrow" />
@@ -27,6 +27,10 @@ defineProps({
   moreText:{
     type: String,
     default: '查看更多'
+  },
+  showFooter: {
+    type: Boolean,
+    default: true
   }
 })
 
