@@ -1,12 +1,12 @@
 <template>
-  <div class="detail top-page">
+  <div class="detail top-page" ref="detailRef">
     <van-nav-bar
       title="房屋详情"
       left-text="旅途"
       left-arrow
       @click-left="onClickLeft"
     />
-    <detail-navbar :eles="nameAndEl" />
+    <detail-navbar :eles="nameAndEl" v-if="isShowNav" @item-clicked="navClicked"/>
     <div class="main" v-if="mainPart">
       <detail-swipe :swipe-data="mainPart.topModule.housePicture.housePics" />
       <detail-info name="名称" :ref="getRefs" :top-info="mainPart.topModule" />
@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { nextTick, onMounted, ref } from 'vue';
+import { ref, watch } from 'vue';
 import { useRouter, useRoute} from 'vue-router';
 import { getHouseDetail } from '@/service'
 import { computed } from '@vue/reactivity';
@@ -38,6 +38,7 @@ import DetailRules from './components/detail_06-rules.vue';
 import DetailMap from './components/detail_07-map.vue';
 import DetailExplanation from './components/detai_08-explanation.vue';
 import DetailNavbar from './components/detail_09-navbar.vue';
+import useScorll from '@/hooks/useScroll';
 
 const router = useRouter();
 const route = useRoute();
@@ -58,6 +59,22 @@ const nameAndEl = ref({});
 const getRefs = (comp) => {
   const name = comp.$el.getAttribute('name');
   nameAndEl.value[name] = comp.$el;
+}
+
+// 处理详情页滚动
+const isShowNav = ref(false);
+const detailRef = ref();
+const { scrollTop } = useScorll(detailRef);
+watch(scrollTop, () => {
+  isShowNav.value = scrollTop.value >= 500;
+});
+const navClicked = (compName) => {
+  const targetEle = nameAndEl.value[compName];
+  // console.log(targetEle.offsetTop);
+  detailRef.value.scrollTo({
+    top: targetEle.offsetTop - 50,
+    behavior: 'smooth'
+  });
 }
 
 </script>

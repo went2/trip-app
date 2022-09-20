@@ -1,8 +1,8 @@
 <template>
   <div class="nav-bar">
-    <van-tabbar :fixed="false">
+    <van-tabbar :fixed="false" v-model="activeIndex">
       <template v-for="(item,index) in names" :key="index">
-        <van-tabbar-item>
+        <van-tabbar-item @click="clickItem(index)">
           <span>{{ item }}</span>
         </van-tabbar-item>
       </template>
@@ -11,7 +11,9 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
+
+const activeIndex = ref(0);
 
 const props = defineProps({
   eles: {
@@ -21,9 +23,14 @@ const props = defineProps({
 });
 
 const names = computed(() => {
-  // console.log(props.eles);
   return Object.keys(props.eles);
-})
+});
+
+const emit = defineEmits(['item-clicked']);
+const clickItem = (idx) => {
+  const compName = names.value[idx];
+  emit('item-clicked', compName);
+}
 </script>
 
 <style lang="less" scoped>
