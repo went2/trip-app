@@ -30,9 +30,10 @@ homeStore.fetchHomeList();
 
 const { isBottom, scrollTop } = useScorll();
 watch(isBottom, () => {
-  // console.log('isBottom', isBottom.value);
-  homeStore.fetchHomeList();
-  isBottom.value = false;
+  if(isBottom.value) {
+    homeStore.fetchHomeList();
+    isBottom.value = false;
+  }
 });
 
 // 控制顶部搜索框
