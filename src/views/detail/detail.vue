@@ -14,6 +14,11 @@
       <detail-comment :comment-data="mainPart.dynamicModule.commentModule" />
       <detail-rules :rules-data="mainPart.dynamicModule.rulesModule" />
       <detail-map :map-data="mainPart.dynamicModule.positionModule" />
+      <detail-explanation :expla-data="mainPart.introductionModule" />
+    </div>
+    <div class="footer">
+      <img src="@/assets/image/detail/icon_ensure.png" alt="">
+      <div class="text">行走大地 永不止息</div>
     </div>
   </div>
 </template>
@@ -30,6 +35,7 @@ import DetailLandlord from './components/detail_04-landlord.vue';
 import DetailComment from './components/detail_05-comment.vue';
 import DetailRules from './components/detail_06-rules.vue';
 import DetailMap from './components/detail_07-map.vue';
+import DetailExplanation from './components/detai_08-explanation.vue';
 
 const router = useRouter();
 const route = useRoute();
@@ -48,5 +54,18 @@ getHouseDetail(route.params.id).then(res => {
 </script>
 
 <style lang="less" scoped>
-
+.detail {
+  .footer {
+    width: 130px;
+    margin: 35px auto;
+    img {
+      width: 100%;
+    }
+    .text {
+      margin-top: 8px;
+      text-align: center;
+      color: #555;
+    }
+  }
+}
 </style>
