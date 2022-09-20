@@ -2,9 +2,7 @@
   <div class="tab-bar">
     <van-tabbar v-model="currentIndex" route active-color="#ff9854">
       <template v-for="(item, index) in tabbarData" :key="index">
-        <van-tabbar-item
-          :to="item.path"
-        >
+        <van-tabbar-item :to="item.path">
           <span>{{ item.text }}</span>
           <template #icon>
             <img v-if="index !== currentIndex" :src="getAssetURL(item.img)" alt="">

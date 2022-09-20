@@ -6,14 +6,15 @@
       left-arrow
       @click-left="onClickLeft"
     />
+    <detail-navbar :eles="nameAndEl" />
     <div class="main" v-if="mainPart">
       <detail-swipe :swipe-data="mainPart.topModule.housePicture.housePics" />
-      <detail-info :top-info="mainPart.topModule" />
-      <detail-facility :facility-data="mainPart.dynamicModule.facilityModule.houseFacility" />
-      <detail-landlord :landlord-data="mainPart.dynamicModule.landlordModule" />
-      <detail-comment :comment-data="mainPart.dynamicModule.commentModule" />
-      <detail-rules :rules-data="mainPart.dynamicModule.rulesModule" />
-      <detail-map :map-data="mainPart.dynamicModule.positionModule" />
+      <detail-info name="名称" :ref="getRefs" :top-info="mainPart.topModule" />
+      <detail-facility name="设施" :ref="getRefs" :facility-data="mainPart.dynamicModule.facilityModule.houseFacility" />
+      <detail-landlord name="房东" :ref="getRefs" :landlord-data="mainPart.dynamicModule.landlordModule" />
+      <detail-comment name="评论" :ref="getRefs" :comment-data="mainPart.dynamicModule.commentModule" />
+      <detail-rules name="须知" :ref="getRefs" :rules-data="mainPart.dynamicModule.rulesModule" />
+      <detail-map name="周边" :ref="getRefs" :map-data="mainPart.dynamicModule.positionModule" />
       <detail-explanation :expla-data="mainPart.introductionModule" />
     </div>
     <div class="footer">
@@ -24,7 +25,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { nextTick, onMounted, ref } from 'vue';
 import { useRouter, useRoute} from 'vue-router';
 import { getHouseDetail } from '@/service'
 import { computed } from '@vue/reactivity';
@@ -36,6 +37,7 @@ import DetailComment from './components/detail_05-comment.vue';
 import DetailRules from './components/detail_06-rules.vue';
 import DetailMap from './components/detail_07-map.vue';
 import DetailExplanation from './components/detai_08-explanation.vue';
+import DetailNavbar from './components/detail_09-navbar.vue';
 
 const router = useRouter();
 const route = useRoute();
@@ -45,11 +47,18 @@ const onClickLeft = () => router.back();
 
 // 获取数据
 const detailInfo = ref({});
-const mainPart = computed(() => detailInfo.value.mainPart)
+const mainPart = computed(() => detailInfo.value.mainPart);
 
 getHouseDetail(route.params.id).then(res => {
   detailInfo.value = res.data;
 });
+
+// 批量绑定组件ref,并获取其根元素
+const nameAndEl = ref({});
+const getRefs = (comp) => {
+  const name = comp.$el.getAttribute('name');
+  nameAndEl.value[name] = comp.$el;
+}
 
 </script>
 
