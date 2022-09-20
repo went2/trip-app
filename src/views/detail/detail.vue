@@ -7,7 +7,7 @@
       @click-left="onClickLeft"
     />
     <detail-navbar :eles="nameAndEl" v-if="isShowNav" @item-clicked="navClicked"/>
-    <div class="main" v-if="mainPart">
+    <div class="main" v-if="mainPart" v-memo="[mainPart]">
       <detail-swipe :swipe-data="mainPart.topModule.housePicture.housePics" />
       <detail-info name="名称" :ref="getRefs" :top-info="mainPart.topModule" />
       <detail-facility name="设施" :ref="getRefs" :facility-data="mainPart.dynamicModule.facilityModule.houseFacility" />
@@ -57,17 +57,18 @@ getHouseDetail(route.params.id).then(res => {
 // 批量绑定组件ref,并获取其根元素
 const nameAndEl = ref({});
 const getRefs = (comp) => {
+  if(!comp) return; // 组件挂载和卸载时都会执行 :ref的函数，卸载时comp为null
   const name = comp.$el.getAttribute('name');
   nameAndEl.value[name] = comp.$el;
 }
 
 // 处理详情页滚动
-const isShowNav = ref(false);
 const detailRef = ref();
 const { scrollTop } = useScorll(detailRef);
-watch(scrollTop, () => {
-  isShowNav.value = scrollTop.value >= 500;
+const isShowNav = computed(() => {
+  return scrollTop.value >= 500;
 });
+
 const navClicked = (compName) => {
   const targetEle = nameAndEl.value[compName];
   // console.log(targetEle.offsetTop);
