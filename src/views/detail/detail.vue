@@ -6,7 +6,7 @@
       left-arrow
       @click-left="onClickLeft"
     />
-    <detail-navbar :eles="nameAndEl" v-if="isShowNav" @item-clicked="navClicked"/>
+    <detail-navbar :eles="nameAndEl" ref="navbarRef" v-if="isShowNav" @item-clicked="navClicked"/>
     <div class="main" v-if="mainPart" v-memo="[mainPart]">
       <detail-swipe :swipe-data="mainPart.topModule.housePicture.housePics" />
       <detail-info name="名称" :ref="getRefs" :top-info="mainPart.topModule" />
@@ -54,7 +54,7 @@ getHouseDetail(route.params.id).then(res => {
   detailInfo.value = res.data;
 });
 
-// 批量绑定组件ref,并获取其根元素
+// 批量绑定组件ref,获取其根元素
 const nameAndEl = ref({});
 const getRefs = (comp) => {
   if(!comp) return; // 组件挂载和卸载时都会执行 :ref的函数，卸载时comp为null
@@ -77,6 +77,25 @@ const navClicked = (compName) => {
     behavior: 'smooth'
   });
 }
+
+// 滚动时匹配顶部tab对应的index
+const navbarRef = ref();
+watch(scrollTop, (newValue) => {
+  // 获取所有组件的offsetTop, 存到数组
+  const eles = Object.values(nameAndEl.value);
+  const allOffset = eles.map(item => item.offsetTop);
+
+  // 匹配newValue在数组中的位置，找到第一个大于它的值的索引
+  let targetIndex = allOffset.length-1;
+  for(let i=0; i<allOffset.length; i++) {
+    if(allOffset[i] > newValue + 50) {
+      targetIndex = i-1;
+      break;
+    }
+  }
+  // 设置为tabbar的激活index
+  navbarRef.value?.setActiveIndex(targetIndex);
+});
 
 </script>
 

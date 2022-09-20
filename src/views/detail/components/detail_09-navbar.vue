@@ -14,6 +14,9 @@
 import { computed, ref } from 'vue';
 
 const activeIndex = ref(0);
+const setActiveIndex = (newIndex) => {
+  activeIndex.value = newIndex;
+};
 
 const props = defineProps({
   eles: {
@@ -31,6 +34,8 @@ const clickItem = (idx) => {
   const compName = names.value[idx];
   emit('item-clicked', compName);
 }
+
+defineExpose({ activeIndex, setActiveIndex });
 </script>
 
 <style lang="less" scoped>
