@@ -83,7 +83,6 @@ const navClicked = (compName) => {
     behavior: 'smooth'
   });
 }
-
 // 滚动时匹配顶部tab对应的index
 const navbarRef = ref();
 watch(scrollTop, (newValue) => {

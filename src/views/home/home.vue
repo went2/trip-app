@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" ref="homeRef">
     <home-nav-bar />
     <div class="banner">
       <img src="@/assets/image/home/banner.webp" alt="banner-image">
@@ -13,8 +13,12 @@
   </div>
 </template>
 
+<script>
+export default { name: 'home' }
+</script>
+
 <script setup>
-import { watch, ref, computed } from 'vue';
+import { watch, ref, computed, onActivated } from 'vue';
 import HomeNavBar from './components/home-nav-bar.vue';
 import HomeSearchBox from './components/home-search-box.vue';
 import HomeCategory from './components/home-category.vue';
@@ -28,7 +32,8 @@ homeStore.fetchHotSuggestsData();
 homeStore.fetchHomeCaterogies();
 homeStore.fetchHomeList();
 
-const { isBottom, scrollTop } = useScorll();
+const homeRef = ref();
+const { isBottom, scrollTop } = useScorll(homeRef);
 watch(isBottom, () => {
   if(isBottom.value) {
     homeStore.fetchHomeList();
@@ -39,12 +44,19 @@ watch(isBottom, () => {
 // 控制顶部搜索框
 const isShowTopSearch = computed(() => scrollTop.value >= 550);
 
+// 返回首页时记录滚动位置，关键将原来的window的滚动转为home div的滚动
+onActivated(() => {
+  homeRef.value.scrollTo({
+    top: scrollTop.value
+  });
+});
 </script>
 
 <style lang="less" scoped>
 .home {
+  height: 100vh;
+  overflow-y: auto;
   padding-bottom: 40px;
-
 }
 .banner {
   img {
