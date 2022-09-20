@@ -9,22 +9,11 @@
     <div class="main" v-if="mainPart">
       <detail-swipe :swipe-data="mainPart.topModule.housePicture.housePics" />
       <detail-info :top-info="mainPart.topModule" />
-
-      <div class="facility-section">
-        <detail-facility :facility-data="mainPart.dynamicModule.facilityModule.houseFacility" />
-      </div>
-
-      <div class="landload-section">
-        <detail-landlord :landlord-data="mainPart.dynamicModule.landlordModule" />
-      </div>
-
-      <div class="comment-section">
-        <detail-comment :comment-data="mainPart.dynamicModule.commentModule" />
-      </div>
-
-      <div class="rules-section">
-        <detail-rules :rules-data="mainPart.dynamicModule.rulesModule" />
-      </div>
+      <detail-facility :facility-data="mainPart.dynamicModule.facilityModule.houseFacility" />
+      <detail-landlord :landlord-data="mainPart.dynamicModule.landlordModule" />
+      <detail-comment :comment-data="mainPart.dynamicModule.commentModule" />
+      <detail-rules :rules-data="mainPart.dynamicModule.rulesModule" />
+      <detail-map :map-data="mainPart.dynamicModule.positionModule" />
     </div>
   </div>
 </template>
@@ -40,6 +29,7 @@ import DetailFacility from './components/detail_03-facility.vue';
 import DetailLandlord from './components/detail_04-landlord.vue';
 import DetailComment from './components/detail_05-comment.vue';
 import DetailRules from './components/detail_06-rules.vue';
+import DetailMap from './components/detail_07-map.vue';
 
 const router = useRouter();
 const route = useRoute();
