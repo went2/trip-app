@@ -35,7 +35,7 @@ const clickItem = (idx) => {
   emit('item-clicked', compName);
 }
 
-defineExpose({ activeIndex, setActiveIndex });
+defineExpose({ setActiveIndex });
 </script>
 
 <style lang="less" scoped>

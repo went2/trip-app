@@ -69,11 +69,17 @@ const isShowNav = computed(() => {
   return scrollTop.value >= 500;
 });
 
+let isClickScroll = false;
+let currentDistance = -1;
 const navClicked = (compName) => {
   const targetEle = nameAndEl.value[compName];
-  // console.log(targetEle.offsetTop);
+
+  isClickScroll = true;
+  currentDistance = targetEle.offsetTop - 50;
+  console.log('currentDistance',currentDistance)
+
   detailRef.value.scrollTo({
-    top: targetEle.offsetTop - 50,
+    top: currentDistance,
     behavior: 'smooth'
   });
 }
@@ -81,6 +87,11 @@ const navClicked = (compName) => {
 // 滚动时匹配顶部tab对应的index
 const navbarRef = ref();
 watch(scrollTop, (newValue) => {
+  // console.log('newValue', Math.floor(newValue))
+  if( Math.round(newValue) === currentDistance ) {
+    isClickScroll = false;
+  }
+  if(isClickScroll) return; // 当tab通过点击进行滚动时，取消匹配，因为已经自动匹配了
   // 获取所有组件的offsetTop, 存到数组
   const eles = Object.values(nameAndEl.value);
   const allOffset = eles.map(item => item.offsetTop);
