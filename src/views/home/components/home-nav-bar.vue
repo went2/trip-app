@@ -1,6 +1,6 @@
 <template>
   <div class="nav-bar">
-    <div class="title">行走大地</div>
+    <div class="title">在路上</div>
   </div>
 </template>
 

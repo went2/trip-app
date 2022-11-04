@@ -2,7 +2,7 @@
   <div class="detail top-page" ref="detailRef">
     <van-nav-bar
       title="房屋详情"
-      left-text="旅途"
+      left-text="折返"
       left-arrow
       @click-left="onClickLeft"
     />
