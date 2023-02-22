@@ -1,6 +1,6 @@
 # description
 
-A h5 trip app developed with Vue3 stack and built with Vite, side project from [coderwhy](https://github.com/coderwhy)'s vue3 courses. 
+A h5 trip app developed with Vue3 stack and built with Vite. 
 
 ## demo
 
